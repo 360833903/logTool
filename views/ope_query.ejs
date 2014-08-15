@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body class='container'>
+    <div id='content' class='row-fluid'>
+      <div class='span4 sidebar'>
+        <form method='post'>
+          <p>版&nbsp;&nbsp;&nbsp;本&nbsp;&nbsp;:&nbsp;
+          <select name='platform' id='platform'>
+            <option value='1' <%=info.platform==1? "selected": "" %> >简体</option>
+            <option value='2' <%=info.platform==2? "selected": "" %> >繁体</option>
+          </select></p>
+          <p>类&nbsp;&nbsp;&nbsp;型&nbsp;&nbsp;:&nbsp;
+          <select name='opeType' id='opeType'>
+            <option value='1' <%=info.opeType==1? "selected": "" %> >选秀查询</option>
+            <option value='2' <%=info.opeType==2? "selected": "" %> >天梯查询</option>
+            <option value='3' <%=info.opeType==3? "selected": "" %> >黄金杯</option>
+            <option value='4' <%=info.opeType==4? "selected": "" %> >获得查询</option>
+            <option value='5' <%=info.opeType==5? "selected": "" %> >卡牌升星</option>
+            <option value='6' <%=info.opeType==6? "selected": "" %> >等级礼包</option>
+            <option value='7' <%=info.opeType==7? "selected": "" %> >好友邀请码</option>
+            <option value='8' <%=info.opeType==8? "selected": "" %> >球员培养</option>
+            <option value='9' <%=info.opeType==9? "selected": "" %> >签到查询</option>
+            <option value='10' <%=info.opeType==10? "selected": "" %> >装备出售</option>
+            <option value='11' <%=info.opeType==11? "selected": "" %> >钻石消耗</option>
+            <option value='12' <%=info.opeType==12? "selected": "" %> >装备升级</option>
+            <option value='13' <%=info.opeType==13? "selected": "" %> >商城礼包</option>
+            <option value='14' <%=info.opeType==14? "selected": "" %> >球票礼包</option>
+            <option value='15' <%=info.opeType==15? "selected": "" %> >护臂洗练</option>
+          </select></p>
+          <p>区&nbsp;&nbsp;&nbsp;服&nbsp;&nbsp;:&nbsp; <input type='text' name='server' id='server' placeholder='区服' value=<%= info.server %> /></p>
+          <p>游&nbsp;戏&nbsp;ID&nbsp;: <input type='text' name='wuid' id='wuid' placeholder='游戏ID' value=<%= info.wuid %> /></p>
+          <% if (locals.info.itemType == false) { %>
+            <p>事件/次数: <input type='text' name='itemType' id='itemType' placeholder='选秀ID/天梯赛/黄金杯/邀请码/获得过滤' /></p>
+          <% } %>
+          <% if (locals.info.itemType != false) { %>
+            <p>事件/次数: <input type='text' name='itemType' id='itemType' placeholder='选秀ID/天梯赛/黄金杯/邀请码/获得过滤' value=<%= info.itemType %> /></p>
+          <% } %>
+          <p>开始时间:&nbsp;<input type='date' name='startTime' id='startTime'  value=<%= info.startTime %> /></p>
+          <p>截止时间:&nbsp;<input type='date' name='endTime' id='endTime'  value=<%= info.endTime %> /></p>
+          <p><input type='submit' name='submit' value='查询数据'/> </p>
+        </form>
+        <a href="/search" target="_blank">返回首页</a>
+      </div>
+      <div class='span8 main'>
+        <table class="table table-hover table-bordered table-striped">
+          <% if (locals.results.length != 0) { %>
+            <% if (locals.info.opeType === '1') { %>
+              <tr><td>序号</td><td>选秀</td><td>时间</td><td>游戏ID</td><td>选秀类型</td><td>钻石金额</td><td>RP值</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f0 %></td><td><%= result.f1 %></td><td><%= result.f2 %></td><td><%= result.f3 %></td><td><%= result.f4 %></td><td><%= result.f6 %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '2') { %>
+              <tr><td>序号</td><td>天梯赛</td><td>时间</td><td>游戏ID</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f0 %></td><td><%= result.f1 %></td><td><%= result.f2 %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '3') { %>
+              <tr><td>序号</td><td>黄金杯</td><td>时间</td><td>游戏ID</td><td>精力消耗</td><td>结果</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f0 %></td><td><%= result.f1 %></td><td><%= result.f2 %></td><td><%= result.f3 %></td><td><%= result.f4==='true'? '赢' : '输' %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '4') { %>
+              <tr><td>序号</td><td>时间</td><td>游戏ID</td><td>类型</td><td>数据</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.time %></td><td><%= result.wuid %></td><td><%= result.type %></td><td><%= result.data %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '5') { %>
+              <tr><td>序号</td><td>时间</td><td>游戏ID</td><td>球员名</td><td>卡牌原星级</td><td>加减星</td><td>升星保护</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f1 %></td><td><%= result.f2 %></td><td><%= result.f3 %></td><td><%= result.f4 %></td><td><%= result.f5 %></td><td><%= result.f6 %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '6') { %>
+              <tr><td>序号</td><td>等级礼包</td><td>时间</td><td>游戏ID</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f0 %></td><td><%= result.f1 %></td><td><%= result.f2 %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '7') { %>
+              <tr><td>序号</td><td>时间</td><td>游戏ID</td><td>邀请码</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f1 %></td><td><%= result.f2 %></td><td><%= result.f4 %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '8') { %>
+              <tr><td>序号</td><td>时间</td><td>游戏ID</td><td>培养</td><td>数量</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f1 %></td><td><%= result.f2 %></td><td><%= result.f3 %></td><td><%= result.f4 %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '9') { %>
+              <tr><td>序号</td><td>时间</td><td>游戏ID</td><td>类型</td><td>数据</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.time %></td><td><%= result.wuid %></td><td><%= result.type %></td><td><%= result.data %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '10') { %>
+              <tr><td>序号</td><td>游戏ID</td><td>时间</td><td>ID</td><td>名称</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.wuid %></td><td><%= result.time %></td><td><%= result.equipId %></td><td><%= result.equipName %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '11') { %>
+              <tr><td>序号</td><td>日期</td><td>游戏ID</td><td>事件类型</td><td>钻石</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.date %></td><td><%= result.wuid %></td><td><%= result.eventID %></td><td><%= result.diamond %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '12') { %>
+              <tr><td>序号</td><td>日期</td><td>游戏ID</td><td>装备ID</td><td>游戏币</td><td>升级前等级</td><td>升级后等级</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.date %></td><td><%= result.wuid %></td><td><%= result.itemID %></td><td><%= result.gold %></td><td><%= result.before %></td><td><%= result.after %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '13') { %>
+              <tr><td>序号</td><td>日期</td><td>游戏ID</td><td>礼包ID</td><td>钻石</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.date %></td><td><%= result.wuid %></td><td><%= result.itemID %></td><td><%= result.diamond %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '14') { %>
+              <tr><td>序号</td><td>日期</td><td>游戏ID</td><td>礼包ID</td><td>游戏币</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.date %></td><td><%= result.wuid %></td><td><%= result.itemID %></td><td><%= result.gold %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '15') { %>
+              <tr><td>序号</td><td>日期</td><td>游戏ID</td><td>锁定</td><td>类型</td><td>新属性</td><td>旧属性</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.date %></td><td><%= result.wuid %></td><td><%= result.lock %></td><td><%= result.type %></td><td><%= result.newA %></td><td><%= result.oldA %></td></tr>
+              <% }) %>
+            <% } %>
+          <% } %>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

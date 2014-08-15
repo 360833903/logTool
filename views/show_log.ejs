@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body class='container'>
+    <div id='content' class='row-fluid'>
+      <div class='span4 sidebar'>
+        <form method='post'>
+          <p>版&nbsp;&nbsp;&nbsp;本&nbsp;&nbsp;:&nbsp;
+          <select name='platform' id='platform'>
+            <option value='1' <%=info.platform==1? "selected": "" %> >简体</option>
+            <option value='2' <%=info.platform==2? "selected": "" %> >繁体</option>
+          </select></p>
+          <p>区&nbsp;&nbsp;&nbsp;服&nbsp;&nbsp;:&nbsp; <input type='text' name='server' id='server' placeholder='0或空是全区查询' value=<%= info.server %> /></p>
+          <p>日期:&nbsp;<input type='date' name='dateTime' id='dateTime'  value=<%= info.dateTime %> /></p>
+          <p><input type='submit' name='submit' value='日志文件查询'/> </p>
+        </form>
+      </div>
+      <div class='span8 main'>
+        <table class="table table-hover table-bordered table-striped">
+          <% if (locals.results.length != 0) { %>
+		<tr><td>序号</td><td>区服</td><td>node</td><td>文件名</td></tr>
+		<% results.forEach(function (result, index) { %>
+                	<tr><td><%= index %></td><td><%= result.server %></td></td><td><%= result.node %></td><td><%= result.name %></td></tr>
+              	<% }) %>
+          <% } %>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

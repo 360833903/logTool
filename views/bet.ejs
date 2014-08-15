@@ -1,0 +1,30 @@
+<html>
+<head>
+        <title>下注查询</title>
+</head>
+<body>
+        <h1 align="center">下注查询</h1>
+        <h4>说明:</h4>
+        <ul>
+                <li>同时支持简繁体版</li>
+		<li>简体版，繁体版均为延迟24小时数据</li>
+        </ul>
+        <hr>
+        <form action="/bet/" method="get">
+                <select name="world">
+                        <option value="1" selected="selected">国</option>
+                        <option value="2">台</option>
+                </select>
+                <label>服<label>
+                <label>wuid:</label>
+                <input type="text" name="wuid" />
+                <label>下注日期区间:</label>
+                <input type="date" name="start_time" />
+		<label> - </label>
+		<input type="date" name="end_time" />
+		
+                <input type="submit" />
+        </form>
+</body>
+</html>
+

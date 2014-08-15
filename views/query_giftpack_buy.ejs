@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body class='container'>
+    <div id='content' class='row-fluid'>
+      <div class='span4 sidebar'>
+        <form method='post'>
+          <p>版&nbsp;&nbsp;&nbsp;本&nbsp;&nbsp;:&nbsp;
+          <select name='platform' id='platform'>
+            <option value='1' <%=info.platform==1? "selected": "" %> >简体</option>
+            <option value='2' <%=info.platform==2? "selected": "" %> >繁体</option>
+          </select></p>
+          <p>游&nbsp;&nbsp;戏&nbsp;&nbsp;ID&nbsp;:&nbsp; <input type='text' name='wuid' id='wuid' placeholder='游戏id' value=<%= info.wuid %> /></p>
+         
+          <p><input type='submit' name='submit' value='查询'/> </p>
+        </form>
+        <a href="/search" target="_blank">返回首页</a>
+      </div>
+      <div class='span8 main'>
+        <table class="table table-hover table-bordered table-striped">
+          <% if (locals.results.length != 0) { %>
+              <tr><td>序号</td><td>ID</td><td>最大上限</td><td>购买日期</td><td>每日上限</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.i %></td><td><%= result.a %></td><td><%= result.d %></td><td><%= result.da %></td></tr>
+              <% }) %>
+          <% } %>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

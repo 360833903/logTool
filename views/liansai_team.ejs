@@ -1,0 +1,22 @@
+<html>
+<head>
+        <title>联赛队伍数查询</title>
+</head>
+<body>
+        <h1 align="center">联赛队伍数查询</h1>
+        <h4>说明:</h4>
+        <ul>
+                <li>仅支持简体</li>
+                <li>用于开新服前复查新区联赛数是否正确</li>
+		<li>输入区id(例如公测25区，即输入29),如果得到的结果不是0或者2720就说明有问题</li>
+        </ul>
+        <hr>
+        <form action="/liansai_team/" method="get">
+                <label>区:</label>
+                <input type="text" name="w" />
+                <input type="submit" />
+        </form>
+        <b><%=result%></b>
+</body>
+</html>
+

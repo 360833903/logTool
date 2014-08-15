@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body class='container'>
+    <div id='content' class='row-fluid'>
+      <div class='span4 sidebar'>
+        <form method='post'>
+          <p>版&nbsp;&nbsp;本&nbsp;&nbsp;:&nbsp;
+          <select name='platform' id='platform'>
+            <option value='1' <%= info.platform==1? "selected": "" %> >简体</option>
+            <option value='2' <%= info.platform==2? "selected": "" %> >繁体</option>
+          </select></p>
+          <p>类&nbsp;&nbsp;型&nbsp;&nbsp;:&nbsp;
+          <select name='opeType' id='opeType'>
+            <option value='1' <%= info.opeType==1? "selected": "" %> >vip查询</option>
+            <option value='2' <%= info.opeType==2? "selected": "" %> >商城礼包</option>
+            <option value='3' <%= info.opeType==3? "selected": "" %> >选秀礼包</option>
+            <option value='4' <%= info.opeType==4? "selected": "" %> >钻石消耗</option>
+            <option value='5' <%= info.opeType==5? "selected": "" %> >每日DAU</option>
+            <option value='6' <%= info.opeType==6? "selected": "" %> >每日登录</option>
+            <option value='7' <%= info.opeType==7? "selected": "" %> >东西部对抗赛</option>
+            <option value='8' <%= info.opeType==8? "selected": "" %> >活跃用户剩余钻石和球票</option>
+          </select></p>
+          <p>开始时间:&nbsp;<input type='date' name='dateTime' id='dateTime'  value=<%= info.dateTime %> /></p>
+          <p><input type='submit' name='submit' value='查询数据'/>
+            <input type='submit' name='submit' value='导出数据'/></p>
+        </form>
+        <a href="/search" target="_blank">返回首页</a>
+      </div>
+      <div class='span8 main'>
+        <table class="table table-hover table-bordered table-striped">
+          <% if (locals.results.length != 0) { %>
+            <% if (locals.info.opeType === '1') { %>
+              <tr><td>序号</td><td>时间</td><td>等级</td><td>总金额</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.date %></td><td><%= result.level %></td><td><%= result.amount %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '2') { %>
+              <tr><td>序号</td><td>区服</td><td>时间</td><td>类型</td><td>钻石金额</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.server %></td><td><%= result.date %></td><td><%= result.type %></td><td><%= result.diamond %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '3') { %>
+              <tr><td>序号</td><td>区服</td><td>时间</td><td>类型</td><td>钻石金额</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.server %></td><td><%= result.date %></td><td><%= result.type %></td><td><%= result.diamond %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '4') { %>
+              <tr><td>序号</td><td>区服</td><td>时间</td><td>类型</td><td>钻石金额</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.server %></td><td><%= result.date %></td><td><%= result.type %></td><td><%= result.diamond %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '5') { %>
+              <tr><td>序号</td><td>区服</td><td>时间</td><td>类型</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.server %></td><td><%= result.date %></td><td><%= result.amount %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '6') { %>
+              <tr><td>序号</td><td>区服</td><td>日期</td><td>WUID</td><td>次数</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.server %></td><td><%= result.date %></td><td><%= result.wuid %></td><td><%= result.times %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '7') { %>
+              <tr><td>序号</td><td>区服</td><td>WUID</td><td>类型</td><td>输场</td><td>赢场</td><td>点数</td><td>钻石</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.server %></td><td><%= result.wuid %></td><td><%= result.type %></td><td><%= result.lose %></td><td><%= result.win %></td><td><%= result.point %></td><td><%= result.diamond %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '8') { %>
+              <tr><td>序号</td><td>区服</td><td>日期</td><td>钻石</td><td>球票</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.server %></td><td><%= result.date %></td><td><%= result.diamond %></td><td><%= result.qiupiao %></td></tr>
+              <% }) %>
+            <% } %>
+          <% } %>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

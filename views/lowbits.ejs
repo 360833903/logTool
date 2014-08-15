@@ -1,0 +1,25 @@
+<html>
+<head>
+        <meta http-equiv="X-UA-Compatible"content="IE=edge">
+        <title>Lowbits解析</title>
+</head>
+<body>
+        <h1 align="center">Lowbits解析</h1>
+        <h5>说明:</h5>
+        <ul>
+                <li>
+                        此工具仅为模拟大量抽卡之用，不能作为测试游戏正确性的依据
+                </li>
+        </ul>
+		<hr>
+		<form action="/lowbits/" method="get">
+			<p>
+					<textarea name="w" style="width:1220px;height:300px;"></textarea>
+			</p>
+			<input type="submit" value="开始" />
+		</form>
+        <p>
+			<%=JSON.stringify(result) %>
+        </p>
+</body>
+</html>

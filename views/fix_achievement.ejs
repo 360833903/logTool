@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>修复我的王朝数据</title>
+</head>
+<body>
+        <h1 align="center">修复我的王朝数据</h1>
+        <h4>说明:</h4>
+        <ul>
+	    <li>修复某个用户王朝数据</li>
+        <li>请正确填写以下信息，切勿填错</li>
+        <li>本工具直接操作正服数据库，如有问题，请先联系技术，勿盲目操作</li>
+        </ul>
+        <hr>
+        <form action="/fix_achievement/" method="get">
+                <label>区号:<label>
+				<input type="text" name="w" />
+                <label>wuid:</label>
+                <input type="text" name="wuid" />
+                <label>类别:</label>
+                <input type="text" name="c" />
+                <label>数量:</label>
+                <input type="text" name="n" />
+
+                <input type="submit" />
+        </form>
+		<hr />
+		<% if(result) {%>
+		操作成功
+		<% } %>
+</body>
+<html>

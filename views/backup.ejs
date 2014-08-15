@@ -1,0 +1,169 @@
+<html>
+<head>
+	<title>备库查询</title>
+	<script type="text/javascript" src="/javascripts/card_list.js"></script>
+</head>
+<body>
+        <h1 align="center">备库查询</h1>
+        <h4>说明:</h4>
+        <ul>
+                <li>最多只能查询10天内的备库</li>
+		<li>备库储存当日10:30AM左右的数据状态</li>
+                <li>同时支持简繁体版</li>
+        </ul>
+        <hr>
+        <form action="/backup/" method="get">
+                <select name="w">
+                        <option value="1" selected="selected">国</option>
+                        <option value="2">台</option>
+                </select>
+                <label>服<label>
+                <label>wuid:</label>
+                <input type="text" name="wuid" />
+                <label>日期:</label>
+                <input type="date" name="d" />
+                <input type="submit" />
+        </form>
+	<% if(result.length>0){ %>
+	<p>
+        <table border=1>
+                <tr>
+                        <td>wuid</td>
+                        <td>球队名</td>
+                        <td>钻石</td>
+                        <td>金币</td>
+                        <td>经验</td>
+			<td>祝福宝石</td>
+			<td>灵魂宝石</td>
+			<td>球票</td>
+			<td>特训卡</td>
+                </tr>
+		<tr>
+			<td><%=result[0]._id %></td>
+			<td><%=result[0].n %></td>
+			<td><%=get_ii(30004,result[0].ii) %></td>
+			<td><%=get_ii(30003,result[0].ii) %></td>
+			<td><%=get_ii(30002,result[0].ii) %></td>
+			<td><%=get_ii(30012,result[0].ii) %></td>
+                        <td><%=get_ii(30013,result[0].ii) %></td>
+                        <td><%=get_ii(30014,result[0].ii) %></td>
+			<td><%=get_ii(30006,result[0].ii) %></td>
+		</tr>
+
+        </table>
+	</p>
+	
+		<% if(liansai.length>0){ %>
+			联赛信息:
+			<p>
+				<table border=1>
+					<tr>
+						<td>积分</td>
+						<td>连胜</td>
+						<td>连胜（算今天第一场）</td>
+						<td>连胜（算今天2场）</td>
+						<td>战斗力</td>
+					</tr>
+					<tr>
+						<td><%=liansai[0].p %></td>
+						<td><%=liansai[0].ww %></td>
+						<td><%=liansai[0].ww0 %></td>
+						<td><%=liansai[0].ww1 %></td>
+						<td><%=liansai[0].sc %></td>
+					</tr>
+				</table>
+			</p>
+		<% } %>
+		<% if(other.length>0) { %>
+			<p>
+                                <table border=1>
+                                        <tr>
+						<td>wuid</td>
+						<td>球队名</td>
+                                                <td>积分</td>
+                                                <td>连胜</td>
+                                                <td>连胜（算今天第一场）</td>
+                                                <td>连胜（算今天2场）</td>
+                                                <td>战斗力</td>
+                                        </tr>
+					<% for(i in other) { %>
+                                        <tr>
+						<td><%=other[i]._id %></td>
+						<td><%=other[i].n %></td>
+                                                <td><%=other[i].p %></td>
+                                                <td><%=other[i].ww %></td>
+                                                <td><%=other[i].ww0 %></td>
+                                                <td><%=other[i].ww1 %></td>
+                                                <td><%=other[i].sc %></td>
+                                        </tr>
+					<% } %>
+                                </table>
+				
+			</p>
+		<% } %>
+	<% if(result[0].tt){ %>
+		天梯信息:
+		<p>
+			<table border=1>
+				<tr>
+					<td>荣誉值</td>
+					<td>积分</td>
+				</tr>
+				<tr>
+					<td><%=result[0].tt.r %></td>
+					<td><%=result[0].tt.p %></td>
+				</tr>
+			</table>
+		</p>
+	<% } %>
+	<p>
+	卡牌数:<%= result[0].card.length %>
+	<table border=1>
+		
+                <tr>
+                        <td>卡牌id</td>
+			<td>静态卡牌id</td>
+                        <td>球员名</td>
+			<td>LV</td>
+                        <td>S</td>
+						<td>X</td>
+                        <td>AM</td>
+						<td>ql</td>
+						<td>qla</td>
+						<td>h</td>
+                </tr>
+		<% for(c in result[0].card) { %>
+		<tr>
+                        <td><%=result[0].card[c]._id %></td>
+			<td><%=result[0].card[c].i %></td>
+                        <td><script>document.write(card_list[<%=result[0].card[c].i %>]);</script></td>
+                        <td><%=result[0].card[c].lv %></td>
+                        <td><%=result[0].card[c].s %></td>
+						<td><%=result[0].card[c].x %></td>
+                        <td><%=result[0].card[c].am %></td>		
+						<td><%=result[0].card[c].ql %></td>
+						<% if(result[0].card[c].qla){	%>
+						<td><%=result[0].card[c].qla %></td>
+						<% }else{ %>
+						<td>未指点</td>
+						<% } %>
+						<td><%=result[0].card[c].h %></td>
+		</tr>
+		<% } %>
+	</table>
+	ic:<%=result[0].ic %>
+	</p>
+	<% } %>
+</body>
+<%
+function get_ii(id,ii) {
+	for(j in ii) {
+		if(ii[j].i == id){
+			return ii[j].a;
+		}
+	}	
+	return 0;
+}
+%>
+</html>
+

@@ -1,0 +1,89 @@
+<%
+  var format = function(digit) {
+    if (digit < 10)
+      return '0'+digit;
+  };
+  var qufu = "";
+  if(area == 1)
+    qufu += "简体";
+  else if(area == 2)
+    qufu += "繁体";
+  qufu += server;
+  qufu += '区';
+%>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="/javascripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+      function check() {
+        var input = $("[name='goto']").val();
+        if(isNaN(input))
+          return alert('输入不合法');
+        if(input > <%= total%>)
+          return alert('超出范围');
+        if(input < 1)
+          return alert('页数不能小于1');
+        return $(form).submit();
+      }
+      function goback() {
+        location.href = '/search';
+      }
+    </script>
+    <style>
+    </style>
+  </head>
+  <body>
+    <span>区服:<%= qufu%></span><br />
+    <span>wuid: <%= wuid%></span>
+    <span>
+    <table>
+      <tr>
+        <td>时间</td>
+        <td>事件</td>
+        <td>消耗</td>
+        <td>更多</td>
+      </tr>
+      <%
+  	  for (var i = 0; i < docs.length; i++) {
+        var date = flag ? new Date(1000 * docs[i].f1) : new Date(docs[i].f1);
+  	  %>
+      <tr>
+        <td><%= date.getFullYear() + '/' + (date.getMonth()+1) + '/' + (date.getDate()) + ' ' + (date.getHours()) + ':' + (date.getMinutes()) + ':' + (date.getSeconds()) %></td>
+        <td><%= docs[i].f3 ? docs[i].f3 :'空'%></td>
+        <td><%= docs[i].f4 ? docs[i].f4 :'空'%></td>
+        <td><%= docs[i].other ? JSON.stringify(docs[i].other) : '空'%></td>
+      </tr>
+  	  <%
+  	  }
+  	  %>
+    </table>
+    <form method='post' action='goto'>
+      <input type='hidden' name='area' value='<%= area%>' />
+      <input type='hidden' name='server' value='<%= server%>' />
+      <input type='hidden' name='wuid' value='<%= wuid%>' />
+      <input type='hidden' name='category' value='<%= category%>' />
+      <input type='hidden' name='start' value='<%= start%>' />
+      <input type='hidden' name='end' value='<%= end%>' />
+      <input type='hidden' name='page' value='<%= page%>' />
+      <%
+        if(page > 1) {
+      %>
+        <a href='./search_result?area=<%= area%>&server=<%= server%>&wuid=<%= wuid%>&category=<%= category%>&start=<%= start%>&end=<%= end%>&page=<%= parseInt(page)-1%>'>上一页</a>
+      <%
+        }
+      %>
+      第<%= page %>页，共<%= total == 0? 1: total %>页
+      <%
+        if(page < total) {
+      %>
+        <a href='./search_result?area=<%= area%>&server=<%= server%>&wuid=<%= wuid%>&category=<%= category%>&start=<%= start%>&end=<%= end%>&page=<%= parseInt(page)+1%>'>下一页</a>
+      <%
+        }
+      %>
+      跳转至<input type='text' name='goto' />页<input type='submit' value='给我跳' onclick='check();return false;'></input>
+      <input type='submit' value='返回' onclick='goback();return false;'></input>
+    </form>
+  </body>
+</html>

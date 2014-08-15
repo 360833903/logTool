@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title>天梯排名查询</title>
+</head>
+<body>
+	<h1 align="center">天梯排名查询</h1>
+	<h4>说明:</h4>
+	<ul>
+		<li>天梯排名只能查询已经结束的天梯赛排名</li>
+                <li>同时支持简繁体版</li>
+                <li>简体版,繁体版均为延迟24小时数据</li>
+	</ul>
+	<hr>
+	<form action="/tianti/" method="get">
+                <select name="world">
+                        <option value="1" selected="selected">国</option>
+                        <option value="2">台</option>
+                </select>
+                <label>服<label>
+		<label>区:</label>
+		<input type="text" name="w" />
+		<label>赛季:</label>
+		<input type="text" name="s" />
+		<input type="submit" />
+	</form>
+	<% if(result && result.length > 0) { %>
+	<p>时间:<%=result[0]._id.getTimestamp() %></p>
+	<table border=1>
+		<tr>
+			<td>wuid</td>
+			<td>球队名</td>
+			<td>排名</td>
+			<td>战绩</td>
+			<td>区/赛季</td>
+		</tr>
+	
+		<% for(i=0;i<result.length;i++) { %>
+		<tr>
+			<td><%=result[i].u %></td>
+			<td><%=result[i].n %></td>
+			<td><%=(parseInt(result[i].p)+1) %></td>
+			<td><%=result[i].v %></td>
+			<td><%=result[i].s %></td>
+		</tr>	
+		<% } %>
+	</table>
+	<% } %>
+</body>
+</html>

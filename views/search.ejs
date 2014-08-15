@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>查找</title>
+    <style>
+      body {
+        width: 2400px;
+      }
+      #mytable {
+        text-align: left;
+        border: 1px solid #aaaaaa;
+      }
+
+      #mytable td {
+        border-bottom: 1px solid #aaaaaa;
+        border-right: 1px solid #aaaaaa;
+      }
+      #mytable th {
+        border-bottom: 1px solid #aaaaaa;
+        border-right: 1px solid #aaaaaa;
+      }
+
+      .left {
+        float: left;
+        max-width: 160px;
+      }
+      .right {
+        float: left;
+        width: 1110px;
+        margin-left: 5px;
+        border-left: 1px solid black;
+      }
+      .alt {
+        background:#ecf6fc;
+      }
+    </style>
+    <script type="text/javascript" src="/javascripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/javascripts/logenum.js"></script>
+    <script type="text/javascript" src="/javascripts/consumeenum.js"></script>
+    <script type="text/javascript" src="/javascripts/item_value.js"></script>
+    <script type="text/javascript" src="/javascripts/search.js"></script>
+    <script type="text/javascript" src="/javascripts/card_list.js"></script>
+    <!--script type="text/javascript" src="/basic_service/?js=itemgroup_info"></script>
+    <script type="text/javascript" src="/basic_service/?js=lucky_ring_list"></script-->
+  </head>
+  <body>
+    <div class='left'>
+      <h1>查询</h1>
+      <input type='hidden' id='data'></input>
+      <input type='hidden' id='page'></input>
+      <input type='hidden' id='total'></input>
+      <input type='hidden' id='catetemp'></input>
+      <form method='post'>
+        <span>版本</span><br/>
+        <select name='area' id='area' onchange='checkWorld(["itemgroup_info","lucky_ring_list"],0);'>
+          <option value='0'>请选择</option>
+          <option value='1'>简体</option>
+          <option value='2'>繁体</option>
+        </select><br />
+        <span>服务器</span><br />
+        <select name='server' id='server'>
+          <option value='0'>请选择</option>
+        </select><br />
+        <span>wuid</span><br />
+        <input type='text' name='wuid' id='wuid'></input><br />
+        <span>日志类型</span><br />
+        <select name='category' id='category'>
+          <option value='0'>请选择</option>
+          <option value='1'>钻石</option>
+          <option value='2'>
+            卡牌</option>
+	   <option value='3'>球票</option>
+	   <option value='4'>碎片</option>
+	   <option value='5'>转盘</option>
+	   <option value='6'>特训卡</option>
+        </select><br />
+        <span>开始时间</span><br />
+        <input type='date' name='start' id='start' /><br />
+        <span>结束时间</span><br />
+        <input type='date' name='end' id='end' /><br />
+        <input type='submit' onclick='check();return false;' /><br />
+      </form>
+      <span id='addr'></span>
+      <table>
+        <tr>
+          <td><button id="prevpagebt" disabled="true" onclick="prevpage()">上页</button></td>
+          <td><button id="nextpagebt" disabled="true" onclick="nextpage()">下页</button></td>
+        </tr>
+        <!--<tr>
+          <td><select id="topage">
+            <option value="-1">请选择</option>
+          </select></td>
+          <td><button id="gotopage">跳转</button></td>
+        </tr>-->
+      </table>
+      <span id="nowpage">第1页 </span><span id="totalpage">共1页</span>
+      <hr>
+      <a href="/liansai/" target="_blank">联赛查询</a> |
+      <a href="/backup/" target="_blank">备库查询</a> <br />
+      <a href="/mobage/" target="_blank">梦ID查询</a> |
+      <a href="/ope_query/" target="_blank">日志查询</a> <br />
+      <a href="/bet/" target="_blank">下注查询</a>
+      <hr />
+      <a href="/tianti/" target="_blank">天梯排名</a> |
+      <a href="/liansai_paiming/" target="_blank">联赛排名</a> <br />
+      <a href="/ope_statistical/" target="_blank">统计数据</a> |
+      <a href="/invokingjs/" target="_blank">卡牌统计</a> <br />
+      <a href="/ope_daily/" target="_blank">每日报表</a> | <a href="/query_giftpack_buy/" target="_blank">VIP礼包查询</a> <br />
+      <hr />
+      <a href="/liansai_team/" target="_blank">联赛队伍</a> |
+      <a href="/tianti_schedule/" target="_blank">天梯排期</a>
+      <hr />
+      <a href="/show_log/" target="_blank">日志文件查看</a>|
+      <a href="/query_data/" target="_blank">邮件查询数据</a>
+    </div>
+    <div class='right'>
+      <table id='mytable'>
+      </table>
+    </div>
+  </body>
+</html>

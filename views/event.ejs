@@ -1,0 +1,50 @@
+<html>
+<head>
+        <title>登陆记录查询</title>
+        <script type="text/javascript" src="/javascripts/card_list.js"></script>
+</head>
+<body>
+        <h1 align="center">登陆记录查询</h1>
+        <h4>说明:</h4>
+        <ul>
+                <li>查询某个用户登陆数据</li>
+                <li>暂时只支持简体版</li>
+        </ul>
+        <hr>
+        <form action="/liansai/" mthod="get">
+                <label>wuid:</label>
+                <input type="text" name="wuid" />
+		<label>日期:</label>
+		<input type="date" name="d" />
+                <input type="submit" />
+        </form>
+        <% if(result[0]) { %>
+        wuid: <%=result[0].u %>
+        <table border=1>
+                <tr>
+                        <td>时间</td>
+                        <td>信息</td>
+                </tr>
+                <% for(i in result) { %>
+                <tr>
+                        <td>
+                                <%=result[i]._id.getTimestamp() %>
+                        </td>
+                        <td>
+                                <% for(j in result[i].o.i1) { %>
+                                        <%
+                                        var bonus="";
+                                        var b = result[i].o.i1;
+                                        bonus += b[j].a + ",";
+                                        %>
+                                        <%=bonus %>
+                                <% } %>
+
+                        </td>
+                </tr>
+                <% } %>
+        </table>
+        <% } %>
+</body>
+</html>
+

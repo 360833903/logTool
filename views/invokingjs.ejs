@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body class='container'>
+    <div id='content' class='row-fluid'>
+      <div class='span4 sidebar'>
+        <form method='post'>
+          <p>版&nbsp;&nbsp;&nbsp;本&nbsp;&nbsp;:&nbsp;
+          <select name='platform' id='platform'>
+            <option value='1' <%=info.platform==1? "selected": "" %> >简体</option>
+            <option value='2' <%=info.platform==2? "selected": "" %> >繁体</option>
+          </select></p>
+          <p>区&nbsp;&nbsp;&nbsp;服&nbsp;&nbsp;:&nbsp; <input type='text' name='server' id='server' placeholder='区服' value=<%= info.server %> /></p>
+          <% if (locals.info.condition == false) { %>
+          <p>条&nbsp;&nbsp;&nbsp;件&nbsp;&nbsp;:&nbsp; <input type='text' name='condition' id='condition' placeholder='等级/星数/am' /></p>
+          <% } %>
+          <% if (locals.info.condition != false) { %>
+            <p>条&nbsp;&nbsp;&nbsp;件&nbsp;&nbsp;:&nbsp; <input type='text' name='condition' id='condition' placeholder='等级/星数/am' value=<%= info.condition %> /></p>
+          <% } %>
+          <p>时间:&nbsp;<input type='date' name='dateTime' id='dateTime'  value=<%= info.dateTime %> /></p>
+          <p><input type='submit' name='submit' value='查询数据'/> </p>
+        </form>
+        <a href="/search" target="_blank">返回首页</a>
+      </div>
+      <div class='span8 main'>
+        <% if (locals.results != '') { %>
+        <p><%= results %></p>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

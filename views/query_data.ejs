@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body class='container'>
+    <div id='content' class='row-fluid'>
+      <div class='span4 sidebar'>
+        <form method='post'>
+        <p>平&nbsp;&nbsp;台&nbsp;&nbsp;:&nbsp;<select name='platform' id='platform'>
+          <option value='1' <%=info.platform==1? "selected": "" %> >简体</option>
+          <option value='2' <%=info.platform==2? "selected": "" %> >繁体</option>
+        </select></p>
+        <p>平&nbsp;&nbsp;台&nbsp;&nbsp;:&nbsp;<select name='queryType' id='queryType'>
+          <option value='2' <%=info.queryType==2? "selected": "" %> >Wuid查询等级和VIP</option>
+          <option value='3' <%=info.queryType==3? "selected": "" %> >Mid查询Wuid</option>
+          <option value='4' <%=info.queryType==4? "selected": "" %> >安全帐号查询</option>
+        </select></p>
+        <p>邮件地址:&nbsp;<input type='text' name='Email' value=<%=info.Email%> placeholder='xxx@dena.com'/></p>
+        <p>游&nbsp;&nbsp;戏&nbsp;&nbsp;id:&nbsp;<textarea name='idData' value=<%=info.idData %>></textarea><p>
+        <p><input type='submit' name='submit' value='提交'/></p>
+        <p><%=results %></p>
+        </form>
+        <a href="/search" target="_blank">返回首页</a>
+      </div>
+      <div class='span8 main'>
+
+      </div>
+    </div>
+  </body>
+</html>

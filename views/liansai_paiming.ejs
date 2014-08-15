@@ -1,0 +1,36 @@
+<html>
+<head>
+        <title>联赛排名统计</title>
+</head>
+<body>
+        <h1 align="center">联赛排名统计</h1>
+        <h4>说明:</h4>
+        <ul>
+                <li>查询任意当天的联赛排名</li>
+                <li>同时支持简繁体版</li>
+                <li>区服id用逗号分隔，不填抽取所有区</li>
+		<li>等级用逗号分隔(如S,A,B,C)，不填抽取所有级别</li>
+		<li>日期填写需要查询的那天的日期</li>
+		<li>排名填写需要查询的前x名,不填抽取全部</li>
+		<li>(S组id:0~3,A组id:4~19,B组id:20~83,C组id:84~339)</li>
+        </ul>
+        <hr>
+        <form action="/liansai_paiming/" method="get">
+                <select name="world">
+                        <option value="1" selected="selected">国</option>
+                        <option value="2">台</option>
+                </select>
+                <label>服  <label>
+                <input type="text" name="w" />
+		<label>区  </label>
+		<input type="text" name="l" />
+		<label>级  </label>
+                <label>前</label>
+                <input type="text" name="r" />
+		<label>名</label>
+		<label>日期:</label>
+                <input type="date" name="d" />	
+                <input type="submit" />
+        </form>
+</body>
+</html>

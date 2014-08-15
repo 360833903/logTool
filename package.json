@@ -1,0 +1,19 @@
+{
+  "name": "chaxun",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "ejs": "*",
+    "mongodb": "*",
+    "connect-mongo": "*",
+    "connect-flash": "*",
+    "markdown":"*",
+    "express-csv":"*",
+  	"async":"0.2.9",
+	"underscore":"1.6.0"
+  }
+}

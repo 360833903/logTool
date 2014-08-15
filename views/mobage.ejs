@@ -1,0 +1,31 @@
+<html>
+<head>
+        <title>MobageID查询</title>
+        <script type="text/javascript" src="/javascripts/card_list.js"></script>
+</head>
+<body>
+        <h1 align="center">MobageID查询</h1>
+        <h4>说明:</h4>
+        <ul>
+                <li>查询某个用户MobageID</li>
+		<li>同时支持简繁体</li>
+		<li>延时查询,只能查到昨天上午十点半前注册的用户信息</li>
+		<li>能100%查询所有wuid对应的mobage id,包括常用和不常用的</li>
+        </ul>
+        <hr>
+        <form action="/mobage/" method="get">
+		<select name="w">
+			<option value="1" selected="selected">国</option>
+			<option value="2">台</option>
+		</select>
+		<label>服<label>
+                <label>wuid:</label>
+                <input type="text" name="wuid" />
+                <input type="submit" />
+        </form>
+	<% if(result.length>0) { %>
+	<b><%=result[0].mid %></b>
+	<% } %>
+</body>
+</html>
+

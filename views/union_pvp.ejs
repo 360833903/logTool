@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body class='container'>
+    <div id='content' class='row-fluid'>
+      <div class='span4 sidebar'>
+        <form method='post'>
+          <p>版&nbsp;&nbsp;&nbsp;本&nbsp;&nbsp;:&nbsp;
+          <select name='platform' id='platform'>
+            <option value='1' <%=info.platform==1? "selected": "" %> >简体</option>
+            <option value='2' <%=info.platform==2? "selected": "" %> >繁体</option>
+          </select></p>
+          <p>类&nbsp;&nbsp;&nbsp;型&nbsp;&nbsp;:&nbsp;
+          <select name='opeType' id='opeType'>
+            <option value='1' <%=info.opeType==1? "selected": "" %> >选秀查询</option>
+            <option value='2' <%=info.opeType==2? "selected": "" %> >天梯查询</option>
+            <option value='3' <%=info.opeType==3? "selected": "" %> >黄金杯</option>
+          </select></p>
+          <p>游&nbsp;戏&nbsp;ID&nbsp;: <input type='text' name='wuid' id='wuid' placeholder='游戏ID' value=<%= info.wuid %> /></p>
+          <p>开始时间:&nbsp;<input type='date' name='startTime' id='startTime'  value=<%= info.startTime %> /></p>
+          <p>截止时间:&nbsp;<input type='date' name='endTime' id='endTime'  value=<%= info.endTime %> /></p>
+          <p><input type='submit' name='submit' value='查询数据'/> </p>
+        </form>
+        <a href="/search" target="_blank">返回首页</a>
+      </div>
+      <div class='span8 main'>
+        <table class="table table-hover table-bordered table-striped">
+          <% if (locals.results.length != 0) { %>
+            <% if (locals.info.opeType === '1') { %>
+              <tr><td>序号</td><td>选秀</td><td>时间</td><td>游戏ID</td><td>选秀类型</td><td>钻石金额</td><td>RP值</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f0 %></td><td><%= result.f1 %></td><td><%= result.f2 %></td><td><%= result.f3 %></td><td><%= result.f4 %></td><td><%= result.f6 %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '2') { %>
+              <tr><td>序号</td><td>天梯赛</td><td>时间</td><td>游戏ID</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f0 %></td><td><%= result.f1 %></td><td><%= result.f2 %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '3') { %>
+              <tr><td>序号</td><td>黄金杯</td><td>时间</td><td>游戏ID</td><td>精力消耗</td><td>结果</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.f0 %></td><td><%= result.f1 %></td><td><%= result.f2 %></td><td><%= result.f3 %></td><td><%= result.f4==='true'? '赢' : '输' %></td></tr>
+              <% }) %>
+            <% } %>
+            <% if (locals.info.opeType === '4') { %>
+              <tr><td>序号</td><td>时间</td><td>游戏ID</td><td>类型</td><td>数据</td></tr>
+              <% results.forEach(function (result, index) { %>
+                <tr><td><%= index %></td><td><%= result.time %></td><td><%= result.wuid %></td><td><%= result.type %></td><td><%= result.data %></td></tr>
+              <% }) %>
+            <% } %>          
+          <% } %>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

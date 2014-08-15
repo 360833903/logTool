@@ -1,0 +1,70 @@
+<html>
+<head>
+	<title>联赛发奖查询</title>
+        <script type="text/javascript" src="/javascripts/card_list.js"></script>
+</head>
+<body>
+        <h1 align="center">联赛发奖查询</h1>
+        <h4>说明:</h4>
+        <ul>
+                <li>查询某个用户所有的联赛发奖数据</li>
+		<li>同时支持简繁体版</li>
+		<li>简体版,繁体版均为延迟24小时数据</li>
+        </ul>
+        <hr>
+        <form action="/liansai/" method="get">
+                <select name="world">
+                        <option value="1" selected="selected">国</option>
+                        <option value="2">台</option>
+                </select>
+                <label>服<label>
+                 <label>wuid:</label>
+                <input type="text" name="wuid" />
+                <input type="submit" />
+        </form>
+	<% if(result[0]) { %>
+	wuid: <%=result[0].u %>
+	<table border=1>
+		<tr>
+			<td>时间</td>
+			<td>奖励</td>
+		</tr>
+		<% for(i in result) { %>
+		<tr>
+			<td>
+				<%=result[i]._id.getTimestamp() %>
+			</td>
+			<td>		
+				<% for(j in result[i].o.i1) { %>	
+					<%
+					var bonus="";
+					var b = result[i].o.i1;
+					bonus += b[j].a + ",";
+					%>
+					<%=bonus %>
+				<% } %>
+				
+				<% for(k in result[i].o.i2) { %>
+					<%
+					var ring = "";
+					var r= result[i].o.i2[k];
+					
+					if(r.i >= 32701 && r.i <=32708) 
+						ring = "C";
+					if(r.i >= 32709 && r.i <= 32716)
+						ring = "B";
+					if(r.i >= 32717 && r.i <= 32724)
+						ring = "A";
+					if(r.i >= 32725 && r.i <= 32732)
+						ring = "S";
+					%>
+					<%=ring %>级联赛冠军戒指
+				<% } %>
+
+			</td>
+		</tr>		
+		<% } %>
+	</table>
+	<% } %>
+</body>
+</html>

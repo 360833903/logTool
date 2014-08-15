@@ -1,0 +1,45 @@
+<html>
+<head>
+        <title>天梯赛排期查询</title>
+</head>
+<body>
+        <h1 align="center">天梯赛排期查询</h1>
+        <h4>说明:</h4>
+        <ul>
+                <li>支持简繁体</li>
+                <li>用于开新服前复查天梯赛排期是否正确</li>
+		<li>使用前先猛击"读取最新配置"，直到显示"Already up-to-date"，如果不能显示说明有问题</li>
+        </ul>
+        <hr>
+	<b>STEP1:</b><a href="/tianti_schedule/?action=git">读取最新配置</a>
+	<p>
+		<%=git_info %>
+	</p>
+	<b>STEP2:</b>
+        <form action="/tianti_schedule/" method="get">
+                <select name="world">
+                        <option value="1" selected="selected">国</option>
+                        <option value="2">台</option>
+                </select>
+                <label>服<label>
+                <input type="submit" />
+        </form>
+	<table border=1>
+		<tr>
+			<td>区服ID</td>
+			<td>区服名</td>
+			<td>是否开放</td>
+			<td>天梯赛配置时间</td>
+		</tr>
+        <% for(i in result) { %>
+		<tr>
+			<td><%=result[i]._id %></td>
+			<td><%=result[i].n %></td>
+			<td><% if(result[i].v == 1){ %>运营中<% }else {%>未开服<% } %></td>
+			<td><%=result[i].start[0]+"-"+result[i].start[1]+"-"+result[i].start[2] %></td>
+		</tr>
+	<% } %>
+	</table>
+</body>
+</html>
+
